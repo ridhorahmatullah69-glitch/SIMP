@@ -1,0 +1,6 @@
+{
+  "name": "SIPMT MTs Agama Islam Mertapada",
+  "description": "Sistem Informasi Pemantauan Terpadu (SIPMT) untuk memantau kehadiran guru/siswa, nilai, disiplin, kelas kosong, pelanggaran, serta mengirim notifikasi otomatis WhatsApp ke orang tua.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
