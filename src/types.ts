@@ -12,6 +12,7 @@ export interface Pengguna {
   role: UserRole;
   password?: string;
   targetId?: string; // Menyambung ke Guru ID, Siswa ID, atau Wali Kelas ID
+  isAuthenticated?: boolean;
 }
 
 export interface Guru {

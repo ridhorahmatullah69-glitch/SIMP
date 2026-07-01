@@ -123,6 +123,8 @@ interface AppContextType {
   backupDatabase: () => void;
   restoreDatabase: (jsonString: string) => boolean;
   resetDatabase: () => void;
+  login: (username: string, password?: string) => boolean;
+  logout: () => void;
 }
 
 const STORAGE_KEY = 'sipmt_state_v1';
@@ -781,6 +783,23 @@ Madrasah Tsanawiyah Agama Islam Mertapada.`;
     logAction('System', 'Admin', 'Reset Database', 'Mengembalikan database ke konfigurasi awal (seed data).');
   };
 
+  const login = (usernameInput: string, passwordInput?: string): boolean => {
+    const user = state.penggunas.find(u => u.username.toLowerCase() === usernameInput.toLowerCase());
+    if (user) {
+      const authenticatedUser = { ...user, isAuthenticated: true };
+      setState(prev => ({ ...prev, currentUser: authenticatedUser }));
+      logAction(user.nama, user.role, 'Login Pengguna', `${user.nama} berhasil masuk ke sistem.`);
+      return true;
+    }
+    return false;
+  };
+
+  const logout = () => {
+    const loggedOutUser = { ...seed.initialPengguna[0], isAuthenticated: false };
+    setState(prev => ({ ...prev, currentUser: loggedOutUser }));
+    logAction(state.currentUser.nama, state.currentUser.role, 'Logout Pengguna', `${state.currentUser.nama} keluar dari sistem.`);
+  };
+
   return (
     <AppContext.Provider value={{
       state,
@@ -825,7 +844,9 @@ Madrasah Tsanawiyah Agama Islam Mertapada.`;
       deletePengumuman,
       backupDatabase,
       restoreDatabase,
-      resetDatabase
+      resetDatabase,
+      login,
+      logout
     }}>
       {children}
     </AppContext.Provider>
